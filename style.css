@@ -1,178 +1,189 @@
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #99383c 0%, #ad705f 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
 }
 
 .container {
-    perspective: 1000px;
-}
-
-.rose {
+    text-align: center;
     position: relative;
     cursor: pointer;
-    transition: transform 1s;
-    width: 200px;
-    height: 200px;
-}
-
-.petals {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    animation: float 6s ease-in-out infinite;
-}
-
-/* Create multiple petals using pseudo-elements */
-.petals::before {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: #ff1493;
-    border-radius: 50% 0 50% 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    box-shadow: 
-        /* Inner petals */
-        -15px -15px 0 -5px #ff1493,
-        15px -15px 0 -5px #ff1493,
-        -15px 15px 0 -5px #ff1493,
-        15px 15px 0 -5px #ff1493,
-        /* Outer petals */
-        -30px -30px 0 -8px #ff69b4,
-        30px -30px 0 -8px #ff69b4,
-        -30px 30px 0 -8px #ff69b4,
-        30px 30px 0 -8px #ff69b4,
-        /* More outer petals */
-        0 -45px 0 -8px #ff69b4,
-        45px 0 0 -8px #ff69b4,
-        0 45px 0 -8px #ff69b4,
-        -45px 0 0 -8px #ff69b4;
-}
-
-/* Add center detail */
-.petals::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background: #ff0066;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
-}
-
-.stem {
-    position: absolute;
-    width: 8px;
-    height: 150px;
-    background: linear-gradient(to right, #228B22, #32CD32);
-    bottom: -150px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Add stem details */
-.stem::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    left: -4px;
-}
-
-.leaf {
-    position: absolute;
-    width: 60px;
-    height: 30px;
-    background: linear-gradient(45deg, #228B22, #32CD32);
-    bottom: 50px;
-    left: 8px;
-    border-radius: 100% 0;
-    transform: rotate(45deg);
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-/* Add vein details to leaf */
-.leaf::before {
-    content: '';
-    position: absolute;
-    width: 2px;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.2);
-    transform: rotate(-45deg);
-    left: 30px;
-    top: 0;
 }
 
 .birthday-text {
-    position: absolute;
-    top: 220px;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.5s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    opacity: 0; /* Hide text initially */
+    transition: opacity 1s ease-in-out;
 }
 
 .birthday-text span {
-    display: inline-block;
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
+    font-size: 3em;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    animation: bounce 0.5s ease-in-out infinite;
-    animation-play-state: paused;
-    margin: 0 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: bounce 1s infinite alternate;
 }
 
-.shine .petals::before {
+.rose {
+    margin: 20px auto;
+    position: relative;
+    width: 100px;
+    height: 150px;
+}
+
+.petals {
+    width: 50px;
+    height: 50px;
+    background: #ff4081;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 25px;
     box-shadow: 
-        /* Inner petals with shine */
-        -15px -15px 0 -5px #ff1493,
-        15px -15px 0 -5px #ff1493,
-        -15px 15px 0 -5px #ff1493,
-        15px 15px 0 -5px #ff1493,
-        /* Outer petals with shine */
-        -30px -30px 0 -8px #ff69b4,
-        30px -30px 0 -8px #ff69b4,
-        -30px 30px 0 -8px #ff69b4,
-        30px 30px 0 -8px #ff69b4,
-        /* More outer petals with shine */
-        0 -45px 0 -8px #ff69b4,
-        45px 0 0 -8px #ff69b4,
-        0 45px 0 -8px #ff69b4,
-        -45px 0 0 -8px #ff69b4,
-        /* Add shine effect */
-        0 0 30px rgba(255, 20, 147, 0.8);
+        15px -15px 0 #ff4081,
+        -15px -15px 0 #ff4081,
+        15px 15px 0 #ff4081,
+        -15px 15px 0 #ff4081;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.stem {
+    width: 4px;
+    height: 100px;
+    background: #4CAF50;
+    position: absolute;
+    bottom: 0;
+    left: 48px;
+}
+
+.leaf {
+    width: 20px;
+    height: 30px;
+    background: #4CAF50;
+    position: absolute;
+    bottom: 40px;
+    left: 4px;
+    border-radius: 0 50% 0 50%;
+    transform: rotate(-45deg);
+}
+
+.balloons {
+    position: fixed;
+    width: 100%;
+    bottom: -100px; /* Start below the viewport */
+    left: 0;
+    transition: transform 2s ease-out;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.balloons.float-up {
+    transform: translateY(-120vh); /* Move up beyond viewport */
+}
+
+.balloon {
+    width: 40px;
+    height: 50px;
+    background: #ff4081;
+    border-radius: 50%;
+    position: absolute;
+    animation: sway 4s infinite alternate;
+}
+
+.balloon:nth-child(1) {
+    left: 20%;
+    background: #64b5f6;
+    animation-delay: 0.2s;
+}
+
+.balloon:nth-child(2) {
+    left: 50%;
+    background: #81c784;
+    animation-delay: 0.5s;
+}
+
+.balloon:nth-child(3) {
+    left: 80%;
+    background: #ffd54f;
+    animation-delay: 0.8s;
+}
+
+.cake {
+    position: relative;
+    width: 120px;
+    margin: 20px auto;
+}
+
+.cake-top {
+    height: 60px;
+    width: 120px;
+    background: #f8bbd0;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+}
+
+.cake-bottom {
+    height: 40px;
+    width: 120px;
+    background: #f48fb1;
+    border-radius: 0 0 10px 10px;
+}
+
+.candle {
+    width: 8px;
+    height: 30px;
+    background: #fff;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+}
+
+.candle::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffd54f;
+    border-radius: 50%;
+    top: -8px;
+    left: 0;
+    animation: flicker 1s infinite alternate;
+}
+
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
 }
 
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
 }
 
-/* Add hover effect */
-.rose:hover {
-    transform: scale(1.05);
+@keyframes sway {
+    0% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
 }
 
-/* Add petal texture */
-.petals::before {
-    background-image: 
-        radial-gradient(circle at 30% 30%, 
-            rgba(255, 255, 255, 0.2) 0%, 
-            rgba(255, 20, 147, 0.8) 60%);
+@keyframes flicker {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.2); opacity: 0.8; }
 }

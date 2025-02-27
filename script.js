@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const birthdayText = document.querySelector('.birthday-text');
     const letters = document.querySelectorAll('.birthday-text span');
     const birthdaySong = document.getElementById('birthday-song');
+    const container = document.querySelector('.container');
+    const confettiContainer = document.getElementById('confetti-container');
+    const balloons = document.querySelector('.balloons');
     let isAnimating = false;
+    let hasClicked = false;
 
     rose.addEventListener('click', () => {
         if (isAnimating) return;
@@ -60,6 +64,56 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => sparkle.remove(), 1000);
         }
     }
+
+    function createConfetti() {
+        const colors = ['#ff4081', '#64b5f6', '#81c784', '#ffd54f', '#e57373'];
+        const emojis = ['🎉', '🎈', '🎊', '✨', '💖', '🎂'];
+
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            const emoji = document.createElement('div');
+            
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.position = 'absolute';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = -20 + 'px';
+            emoji.style.fontSize = '24px';
+            emoji.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            const animation = emoji.animate([
+                {
+                    top: '-20px',
+                    transform: `rotate(${Math.random() * 360}deg)`
+                },
+                {
+                    top: '100vh',
+                    transform: `rotate(${Math.random() * 360}deg)`
+                }
+            ], {
+                duration: Math.random() * 2000 + 2000,
+                easing: 'cubic-bezier(.37,0,.63,1)'
+            });
+
+            animation.onfinish = () => emoji.remove();
+            confettiContainer.appendChild(emoji);
+        }
+    }
+
+    container.addEventListener('click', () => {
+        if (!hasClicked) {
+            hasClicked = true;
+            createConfetti();
+            birthdaySong.play();
+            
+            // Show birthday text with delay
+            setTimeout(() => {
+                birthdayText.style.opacity = '1';
+            }, 500);
+
+            // Float balloons up
+            balloons.classList.add('float-up');
+        }
+    });
 
     // Add sparkle animation to stylesheet
     const style = document.createElement('style');
